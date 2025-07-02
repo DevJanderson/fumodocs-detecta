@@ -18,7 +18,7 @@ export default function HomePage() {
         <Link href="/docs/guia/primeiro-guia" className="underline text-fd-foreground/80 hover:text-fd-foreground dark:text-white/80 dark:hover:text-white">Guia Rápido</Link>
         <Link href="/docs/examples/exemplo-basico" className="underline text-fd-foreground/80 hover:text-fd-foreground dark:text-white/80 dark:hover:text-white">Exemplos</Link>
       </div>
-      <footer className="absolute bottom-3 text-xs text-fd-muted-foreground dark:text-gray-400">
+      <footer className="absolute bottom-1 sm:bottom-3 text-xs text-fd-muted-foreground dark:text-gray-400">
         Detecta Docs v1.0.0 &copy; {new Date().getFullYear()}
       </footer>
     </main>
