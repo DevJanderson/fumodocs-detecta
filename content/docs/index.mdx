@@ -2,35 +2,155 @@
 title: Introdução
 description: Documentação do projeto Detecta
 ---
+# 📚 Documentação - DETECTA
 
-# Bem-vindo à Documentação!
+Bem-vindo à documentação do sistema **DETECTA** - Sistema de Monitoramento Epidemiológico.
 
-Este é um exemplo de documento em MDX. Aqui você pode usar **Markdown**, componentes React e muito mais.
+## 📋 Índice
 
-## O que você encontra aqui?
+### 🏗️ Arquitetura
+- [Visão Geral do Projeto](../README.md)
+- [Tecnologias Utilizadas](../README.md#tecnologias-utilizadas)
+- [Estrutura do Projeto](../README.md#estrutura-do-projeto)
 
-- Documentação interativa
-- Suporte a componentes customizados
-- Exemplos de código
-- Links úteis
+### 📦 Módulos
 
-## Exemplo de Alerta
+#### 🔐 Autenticação
+- [Módulo de Autenticação](./modules/auth.md) *(pendente)*
 
-> ⚠️ **Atenção:** Este é um alerta de exemplo. Você pode criar componentes de aviso personalizados!
+#### 📰 Notícias
+- [Módulo de Notícias](./modules/noticias.md) ✅ **v1.1.0**
 
-## Exemplo de Código
+#### 🏥 Unidades
+- [Módulo de Unidades](./modules/unidades.md) *(pendente)*
 
-```js
-function saudacao(nome) {
-  return `Olá, ${nome}!`;
-}
+#### 📊 Dashboard
+- [Módulo de Dashboard](./modules/dashboard.md) *(pendente)*
 
-console.log(saudacao('Mundo'));
+#### 🗺️ Mapas Epidemiológicos
+- [Módulo de Mapas](./modules/mapas.md) *(pendente)*
+
+#### 🚨 Alertas
+- [Módulo de Alertas](./modules/alertas.md) *(pendente)*
+
+#### 📈 Histórico
+- [Módulo de Histórico](./modules/historico.md) *(pendente)*
+
+#### ⚙️ Configurações
+- [Módulo de Configurações](./modules/settings.md) *(pendente)*
+
+### 🛠️ Desenvolvimento
+
+#### 🚀 Setup
+- [Configuração do Ambiente](../README.md#como-configurar-o-ambiente-de-desenvolvimento)
+- [Execução do Projeto](../README.md#como-executar-o-projeto)
+
+#### 📝 Padrões
+- [Convenções de Código](./development/coding-standards.md) *(pendente)*
+- [Estrutura de Arquivos](./development/file-structure.md) *(pendente)*
+- [Componentes Frontend](./development/frontend-components.md) *(pendente)*
+
+#### 🔧 API
+- [Referência da API](./api/reference.md) *(pendente)*
+- [Endpoints](./api/endpoints.md) *(pendente)*
+
+## 🎯 Como Contribuir
+
+### 1. Documentação de Módulos
+Para documentar um novo módulo:
+
+1. Crie um arquivo `nome-do-modulo.md` em `docs/modules/`
+2. Use o template base da documentação
+3. Inclua todas as seções relevantes:
+   - Visão Geral
+   - Arquitetura
+   - Funcionalidades
+   - Implementação
+   - Como Usar
+   - Troubleshooting
+
+### 2. Estrutura Padrão
+```markdown
+# 📰 Nome do Módulo - DETECTA
+
+## 📋 Visão Geral
+[Descrição do módulo]
+
+## 🏗️ Arquitetura
+[Estrutura de arquivos e tecnologias]
+
+## 🎯 Funcionalidades
+[Lista de funcionalidades principais]
+
+## 🔧 Implementação
+[Código e exemplos]
+
+## 🛠️ Como Usar
+[Instruções de uso]
+
+## 🔍 Troubleshooting
+[Problemas comuns e soluções]
 ```
 
-## Próximos Passos
+### 3. Atualização do Índice
+Após criar a documentação de um módulo, atualize este README.md marcando como ✅.
 
-<Cards>
-  <Card title="Aprenda mais sobre Next.js" href="https://nextjs.org/docs" />
-  <Card title="Aprenda mais sobre Fumadocs" href="https://fumadocs.vercel.app" />
-</Cards>
+## 📊 Status da Documentação
+
+| Módulo | Status | Versão | Última Atualização | Funcionalidades |
+|--------|--------|--------|-------------------|-----------------|
+| Notícias | ✅ Completo | 1.1.0 | Janeiro 2025 | Responsividade, Cores ITpS, Tabela Responsiva |
+| Autenticação | 🔄 Pendente | - | - | - |
+| Unidades | 🔄 Pendente | - | - | - |
+| Dashboard | 🔄 Pendente | - | - | - |
+| Mapas | 🔄 Pendente | - | - | - |
+| Alertas | 🔄 Pendente | - | - | - |
+| Histórico | 🔄 Pendente | - | - | - |
+| Configurações | 🔄 Pendente | - | - | - |
+
+## 🆕 Últimas Atualizações
+
+### v1.1.0 - Janeiro 2025
+- ✅ **Responsividade Completa**: Mobile, tablet e desktop
+- ✅ **Sistema de Cores ITpS**: Categorias com cores semânticas
+- ✅ **Tabela Responsiva**: Scroll horizontal em mobile
+- ✅ **Modal Adaptativo**: Layout responsivo
+- ✅ **Documentação Atualizada**: Guias completos de uso
+
+### v1.0.0 - Janeiro 2025
+- ✅ Estrutura base da documentação
+- ✅ Módulo de notícias documentado
+- ✅ Templates e scripts criados
+
+## 🎨 Padrões de Design
+
+### Responsividade
+- **Mobile First**: Abordagem mobile-first para todos os componentes
+- **Breakpoints**: 640px (tablet), 1024px (desktop)
+- **Grid Adaptativo**: 1 coluna (mobile) → 2 colunas (tablet) → 3 colunas (desktop)
+
+### Cores ITpS
+- **🔴 ITpS Red**: `#F5685D` - Covid, alertas críticos
+- **🟢 ITpS Green**: `#59B852` - Sucesso, status positivo
+- **🟠 ITpS Orange**: `#F5C644` - Dengue, avisos
+- **🔵 ITpS Blue**: `#1069af` - Gripe, informações
+
+## 🔗 Links Úteis
+
+- [Repositório Principal](../README.md)
+- [Issues do Projeto](https://github.com/seu-repo/detecta_frontend/issues)
+- [Pull Requests](https://github.com/seu-repo/detecta_frontend/pulls)
+
+## 📞 Suporte
+
+Para dúvidas sobre a documentação ou o projeto:
+
+- **Email**: suporte@detecta.com
+- **Slack**: #detecta-dev
+- **Issues**: [GitHub Issues](https://github.com/seu-repo/detecta_frontend/issues)
+
+---
+
+**Última atualização**: Junho 2025  
+**Versão da Documentação**: 1.0.0  
+**Mantido por**: Equipe DETECTA 

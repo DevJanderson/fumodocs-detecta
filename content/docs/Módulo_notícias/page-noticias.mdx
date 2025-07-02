@@ -1,0 +1,316 @@
+---
+title: Página Notícias
+description: Guia Rápido para Iniciantes
+---
+# 📰 Módulo de Notícias - DETECTA
+
+## 📋 Visão Geral
+
+O módulo de **Notícias** do sistema DETECTA é responsável por exibir e gerenciar notícias epidemiológicas capturadas pelo sistema. Oferece uma interface moderna e interativa para visualização de notícias categorizadas por tipo de doença.
+
+## 🏗️ Arquitetura
+
+### Estrutura de Arquivos
+```
+templates/noticias/
+├── index.html                    # Template principal
+└── components/
+    ├── PageHeader.html          # Cabeçalho padrão da página
+    └── news_geral.html          # Componente principal de notícias
+
+routes/noticias/
+├── __init__.py                  # Configuração do Blueprint
+└── noticias_viewer.py          # Controlador das notícias
+
+static/js/my-alpinejs/
+└── modal.js                     # Componente modal reutilizável
+```
+
+### Tecnologias Utilizadas
+- **Frontend**: Alpine.js, Tailwind CSS, HTMX
+- **Backend**: Flask, Blueprint
+- **Dados**: Mockados (preparado para API real)
+
+## 🎯 Funcionalidades
+
+### 1. Sistema de Categorização
+- **Categorias disponíveis**:
+  - `todas` - Visualização geral
+  - `covid` - Notícias sobre COVID-19 (🔴 Vermelho)
+  - `dengue` - Notícias sobre Dengue (🟠 Laranja)
+  - `febre` - Notícias sobre Febre Amarela (🟡 Amarelo)
+  - `gripe` - Notícias sobre Gripe (🔵 Azul)
+  - `outros` - Outras notícias de saúde (⚫ Cinza)
+
+### 2. Modos de Visualização
+- **Lista (Tabela)**: Visualização em formato de tabela com colunas organizadas
+- **Cards**: Visualização em grid responsivo de cards
+
+### 3. Sistema de Paginação
+- Controle de itens por página (10 por padrão)
+- Navegação entre páginas
+- Contador total de notícias
+
+### 4. Modal Interativo
+- Exibição detalhada de notícias
+- Fechamento por clique fora ou tecla ESC
+- Bloqueio de scroll quando aberto
+
+## 📊 Estrutura de Dados
+
+### Modelo de Notícia
+```javascript
+{
+  tempo: "há 5 minutos",           // Tempo relativo ou data completa
+  fonte: ["CNN", "G1"],            // Array de nomes das fontes
+  fonteLogo: [
+    "https://logo.clearbit.com/cnn.com",
+    "https://logo.clearbit.com/g1.globo.com"], // Array de logos das fontes
+  categoria: "covid",              // Categoria da notícia
+  titulo: "Título da notícia",     // Título principal
+  resumo: "Resumo da notícia",     // Resumo/descrição
+  url: "https://...",              // URL original
+  regiao: "Sudeste"                // Região da notícia
+}
+```
+
+- O campo `tempo` pode ser relativo ("há 5 minutos", "há 1 hora") ou data/hora completa ("23 jun 2025, 13:23 GMT-4").
+- Os campos `fonte` e `fonteLogo` são arrays e podem conter múltiplas fontes/logos.
+
+### Fontes de Notícias
+- **CNN** - Notícias internacionais
+- **G1** - Notícias nacionais
+- **Ministério da Saúde** - Notícias oficiais
+- **Reuters** - Notícias internacionais
+- **BBC** - Notícias internacionais
+- **Globo** - Notícias nacionais
+- **UOL** - Notícias nacionais
+- **Estadão** - Notícias nacionais
+- **Folha** - Notícias nacionais
+- **O Globo** - Notícias nacionais
+- **El País** - Notícias internacionais
+- **Veja** - Notícias nacionais
+
+## 🔧 Implementação
+
+### Componente Alpine.js (newsManager)
+```javascript
+Alpine.data("newsManager", () => ({
+  // Estado do modal
+  isModalOpen: false,
+  modalTitle: '',
+  modalContent: '',
+  noticiaAtual: null,
+
+  // Estado da interface
+  categoria: "todas",
+  viewMode: "list",
+  pagina: 1,
+  porPagina: 10,
+
+  // Métodos principais
+  openModal(noticia) { ... },
+  closeModal() { ... },
+  mudarCategoria(novaCategoria) { ... },
+  mudarVisualizacao(modo) { ... },
+  mudarPagina(novaPagina) { ... }
+}))
+```
+
+### Rotas Backend
+```python
+# routes/noticias/__init__.py
+from flask import Blueprint
+from .noticias_viewer import index
+
+bp_noticias = Blueprint('noticias', __name__)
+bp_noticias.add_url_rule('/', view_func=index, methods=['GET'])
+
+def init_app(app):
+    app.register_blueprint(bp_noticias, url_prefix='/noticias')
+```
+
+## 🎨 Interface e UX
+
+### Componente PageHeader (Responsivo)
+```html
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-4 sm:gap-0">
+  <div class="flex-1">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
+      {{ title }}
+    </h1>
+    <p class="text-base sm:text-lg text-foreground">{{ description }}</p>
+  </div>
+  <img src="{{ image }}" alt="" class="hidden sm:block max-w-[15%] md:max-w-[20%]">
+</div>
+```
+
+### Sistema de Cores ITpS
+```css
+/* Cores disponíveis como variáveis CSS */
+:root {
+  --itps-red: #F5685D;      /* Covid */
+  --itps-green: #59B852;    /* Sucesso */
+  --itps-orange: #F5C644;   /* Dengue */
+  --itps-blue: #1069af;     /* Gripe */
+}
+
+/* Classes Tailwind disponíveis */
+.bg-itpsRed, .text-itpsGreen, .bg-itpsOrange, .bg-itpsBlue
+```
+
+### Características de Design
+- **Responsividade Completa**: 
+  - Mobile (< 640px): Layout otimizado, tabela com scroll horizontal
+  - Tablet (640px - 1024px): Grid 2 colunas, layout intermediário
+  - Desktop (> 1024px): Grid 3 colunas, layout completo
+- **Acessibilidade**: Navegação por teclado e estrutura semântica
+- **Performance**: Carregamento otimizado com Alpine.js
+- **UX Moderna**: Transições suaves e estados visuais claros
+- **Tema Escuro**: Suporte completo com cores adaptativas
+
+## 🚀 Funcionalidades Avançadas
+
+### Sistema de Filtros
+- Filtragem por categoria em tempo real
+- Reset automático da paginação ao mudar categoria
+- Contagem dinâmica de resultados
+
+### Modal Interativo
+- Exibição detalhada de notícias
+- Fechamento por clique fora ou tecla ESC
+- Bloqueio de scroll quando aberto
+- Transições suaves de entrada/saída
+- Layout responsivo com padding adaptativo
+
+### Tabela Responsiva
+- Scroll horizontal em dispositivos móveis
+- Colunas com larguras responsivas
+- Texto e padding adaptativos
+- Cabeçalho fixo com scroll
+
+## 📱 Responsividade
+
+### Breakpoints Implementados
+```css
+/* Mobile First Approach */
+.container {
+  padding: 1rem;           /* Mobile */
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 1.5rem;       /* Tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 2.5rem;       /* Desktop */
+  }
+}
+```
+
+### Adaptações por Dispositivo
+
+#### 📱 Mobile (< 640px)
+- Container com padding reduzido (`px-4`)
+- Cabeçalho em layout vertical
+- Tabela com scroll horizontal
+- Modal com padding otimizado (`p-4`)
+- Imagem do header oculta
+- Grid 1 coluna nos cards
+
+#### 📱 Tablet (640px - 1024px)
+- Padding intermediário (`px-6`)
+- Layout flexível no cabeçalho
+- Grid 2 colunas nos cards
+- Modal com padding moderado (`p-6`)
+
+#### 🖥️ Desktop (> 1024px)
+- Padding máximo (`px-10`)
+- Layout horizontal completo
+- Grid 3 colunas nos cards
+- Imagem do header visível
+
+## 📈 Estado Atual e Próximos Passos
+
+### ✅ Implementado
+- Interface completa e funcional
+- Sistema de categorização com cores semânticas
+- Modos de visualização responsivos
+- Paginação com layout adaptativo
+- Modal interativo responsivo
+- Dados mockados realistas
+- Design responsivo completo
+- Sistema de cores ITpS
+- Tabela responsiva com scroll horizontal
+- Suporte a tema escuro
+
+### 🔄 Pendente/Próximos Passos
+- Integração com API real de notícias
+- Sistema de busca/filtros avançados
+- Cache de notícias
+- Notificações em tempo real
+- Exportação de dados
+- Analytics de leitura
+
+## 🛠️ Como Usar
+
+### 1. Acessar o Módulo
+```
+URL: /noticias
+```
+
+### 2. Navegar por Categorias
+- Clique nas abas para filtrar por categoria
+- Use "Todas" para ver todas as notícias
+- Cores indicam o tipo de doença
+
+### 3. Alternar Visualização
+- Use os botões de visualização (lista/cards)
+- A visualização é salva durante a sessão
+- Layout se adapta ao dispositivo
+
+### 4. Ver Detalhes
+- Clique em qualquer notícia para abrir o modal
+- Use ESC ou clique fora para fechar
+- Modal responsivo em todos os dispositivos
+
+### 5. Navegar por Páginas
+- Use os controles de paginação no rodapé
+- O total de notícias é exibido
+- Layout adaptativo para mobile
+
+## 🔍 Troubleshooting
+
+### Problemas Comuns
+1. **Modal não abre**: Verificar se Alpine.js está carregado
+2. **Filtros não funcionam**: Verificar se o componente newsManager está inicializado
+3. **Layout quebrado**: Verificar se Tailwind CSS está compilado
+4. **Tabela não responsiva**: Verificar se overflow-x-auto está aplicado
+5. **Cores não aparecem**: Verificar se as variáveis CSS estão definidas
+
+### Debug
+```javascript
+// Verificar se o componente está funcionando
+console.log("Componente de notícias inicializado");
+
+// Verificar dados mockados
+console.log(mockNoticias);
+
+// Verificar responsividade
+console.log("Screen width:", window.innerWidth);
+```
+
+## 📚 Referências
+
+- [Alpine.js Documentation](https://alpinejs.dev/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/)
+- [Flask Blueprint Documentation](https://flask.palletsprojects.com/en/2.3.x/blueprints/)
+
+---
+
+**Última atualização**: Junho 2025
+**Versão**: 1.1.0
+**Autor**: Equipe DETECTA 
