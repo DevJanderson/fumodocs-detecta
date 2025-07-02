@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function HomePage() {
   return (
-    <main className="relative flex flex-1 flex-col items-center justify-center text-center py-16 gap-6 bg-white dark:bg-neutral-900 min-h-screen">
+    <main className="relative flex flex-1 flex-col px-3 items-center justify-center text-center py-16 gap-6 bg-white dark:bg-neutral-900 min-h-screen">
       <img src="/Logo-detecta.svg" alt="Logo Detecta" className="w-24 h-24 mb-4" />
       <h1 className="text-4xl font-extrabold text-fd-foreground dark:text-white mb-2">Detecta Docs</h1>
       <p className="text-lg text-fd-muted-foreground dark:text-gray-300 max-w-xl mb-6">
